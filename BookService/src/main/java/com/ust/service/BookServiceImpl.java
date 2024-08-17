@@ -3,6 +3,7 @@ package com.ust.service;
 import com.ust.domain.Book;
 import com.ust.exception.BookNotFoundException;
 import com.ust.exception.DuplicateBookException;
+import com.ust.exception.StockUnavailableException;
 import com.ust.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,15 @@ public class BookServiceImpl implements BookService{
     public void deleteBook(long id) {
         Book book1=getBookById(id);
             repository.deleteById(id);
+    }
+
+    @Override
+    public int getStockById(long id) {
+        Book book=getBookById(id);
+        var st=book.getStock();
+        if(st==0){
+            throw new StockUnavailableException("Stock not available");
+        }
+        return (int) st;
     }
 }

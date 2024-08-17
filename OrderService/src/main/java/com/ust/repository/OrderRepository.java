@@ -1,4 +1,4 @@
-package com.ust.domain.repository;
+package com.ust.repository;
 
 import com.ust.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

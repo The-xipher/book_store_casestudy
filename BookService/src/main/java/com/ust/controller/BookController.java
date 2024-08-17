@@ -47,5 +47,11 @@ public class BookController {
         service.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/stock")
+    public ResponseEntity<Integer> getStockById(@PathVariable long id){
+        return ResponseEntity.ok().body(service.getStockById(id));
+    }
+
 }
 
