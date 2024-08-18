@@ -1,6 +1,7 @@
 package com.ust.service;
 
 import com.ust.domain.Order;
+import com.ust.dto.Customer;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface OrderService {
     Order updateOrder(long id,Order order);
     void deleteOrder(long id);
     int getStockBookId(long id);
-
+    Customer getCustomerById(long id);
 
 }

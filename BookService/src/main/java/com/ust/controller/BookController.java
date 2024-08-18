@@ -48,7 +48,7 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/stock")
+    @GetMapping("/{id}/stocks")
     public ResponseEntity<Integer> getStockById(@PathVariable long id){
         return ResponseEntity.ok().body(service.getStockById(id));
     }
