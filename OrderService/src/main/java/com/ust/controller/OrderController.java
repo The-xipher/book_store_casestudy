@@ -2,6 +2,7 @@ package com.ust.controller;
 
 
 import com.ust.domain.Order;
+import com.ust.dto.CombinedDto;
 import com.ust.dto.Customer;
 import com.ust.dto.OrderDto;
 import com.ust.service.OrderService;
@@ -19,10 +20,12 @@ public class OrderController {
     OrderService service;
 
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto dto){
+    public ResponseEntity<CombinedDto> createOrder(@RequestBody OrderDto dto){
         Order order=dto.toOrder(dto);
+        var a=service.getCustomerById(order.getCustomerId());
         var o=dto.toDto(service.createOrder(order));
-        return ResponseEntity.status(HttpStatus.CREATED).body(o);
+        CombinedDto combinedDto=new CombinedDto(o,a);
+        return ResponseEntity.status(HttpStatus.CREATED).body(combinedDto);
     }
 
     @GetMapping
@@ -43,8 +46,12 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable long id){
-        return ResponseEntity.ok().body(service.getOrderById(id));
+    public ResponseEntity<CombinedDto> getOrderById(@PathVariable long id){
+
+        var a=OrderDto.toDto(service.getOrderById(id));
+        var b=service.getCustomerById(a.customerId());
+        CombinedDto dto=new CombinedDto(a,b);
+        return ResponseEntity.ok().body(dto);
     }
 
     @GetMapping("/{id}/stocks")

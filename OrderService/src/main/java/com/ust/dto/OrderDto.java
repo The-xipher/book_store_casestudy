@@ -19,7 +19,7 @@ public record OrderDto(
         @NotNull(message = "Status Required")  @Pattern(regexp = " PENDING|CONFIRMED|CANCELLED",message =" PENDING, CONFIRMED, CANCELLED   any one of this required" )
         Status status
 ) {
-    public OrderDto toDto(Order order){
+    public static OrderDto toDto(Order order){
         return new OrderDto(order.getId(),order.getCustomerId(), order.getBookId(),order.getQuantity(),order.getStatus());
     }
 
