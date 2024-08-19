@@ -59,4 +59,12 @@ public class BookServiceImpl implements BookService{
         }
         return (int) st;
     }
+
+    @Override
+    public void updateStock(long id,int stock) {
+        Book book=getBookById(id);
+        book.setStock(stock);
+        repository.save(book);
+
+    }
 }

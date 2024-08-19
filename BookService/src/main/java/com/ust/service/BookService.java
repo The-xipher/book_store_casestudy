@@ -10,4 +10,7 @@ public interface BookService {
     Book updateBook(long id,Book book);
     void deleteBook(long id);
     int getStockById(long id);
+
+    void updateStock(long id,int stock);
+
 }

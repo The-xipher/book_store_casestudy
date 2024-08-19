@@ -1,6 +1,7 @@
 package com.ust.service;
 
 import com.ust.domain.Order;
+import com.ust.domain.Status;
 import com.ust.dto.Customer;
 import com.ust.exception.OrderNotFoundException;
 import com.ust.feignclient.BookServiceClient;
@@ -60,5 +61,22 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Customer getCustomerById(long id) {
         return customerServiceClient.getCustomerById(id);
+    }
+
+    @Override
+    public void updateStock(long id, long BookId, Status status) {
+        var o=getOrderById(id);
+        int stock=getStockBookId(BookId);
+        if(status==Status.CONFIRMED||status==Status.PENDING){
+            if(status!=o.getStatus()){
+                stock=stock-o.getQuantity();
+            }
+        }
+        if (status==Status.CANCELLED){
+            if (status!=o.getStatus()){
+                stock=stock+o.getQuantity();
+            }
+        }
+        bookServiceClient.updateStock(id,stock);
     }
 }

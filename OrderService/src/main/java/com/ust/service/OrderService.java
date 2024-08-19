@@ -1,6 +1,7 @@
 package com.ust.service;
 
 import com.ust.domain.Order;
+import com.ust.domain.Status;
 import com.ust.dto.Customer;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface OrderService {
     int getStockBookId(long id);
     Customer getCustomerById(long id);
 
+    void updateStock(long id, long BookId, Status status);
 }

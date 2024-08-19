@@ -53,5 +53,11 @@ public class BookController {
         return ResponseEntity.ok().body(service.getStockById(id));
     }
 
+    @PutMapping("/{id}/stock")
+    public ResponseEntity<HttpStatus> updateStock(@PathVariable long id,@RequestBody int stock){
+        service.updateStock(id,stock);
+        return ResponseEntity.noContent().build();
+    }
+
 }
 
